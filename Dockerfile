@@ -45,15 +45,26 @@ RUN mkdir /INPUTDIR /EXECDIR /OUTPUTDIR /TESTDIR /INDEXDIR
 RUN chmod -R 0755 /INPUTDIR /EXECDIR /OUTPUTDIR /TESTDIR /INDEXDIR
 ##############################################################
 # Dockerfile Version:   1.0
-# Software:             SRA_TOOLKIT
-# Software Version:     1.2
-# Software Website:     SRA_TOOLKIT
-# Description:          SRA_TOOLKIT 
+# Software:             SINA
+# Software Version:     1.2.11
+# Software Website:     SINA
+# Description:          SILVA Incremental Aligner 
 ##############################################################
 
-RUN mkdir /EXECDIR/sratoolkit
-RUN wget https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.8.2-1/sratoolkit.2.8.2-1-centos_linux64.tar.gz -P /EXECDIR/sratoolkit
-RUN tar zxf /EXECDIR/sratoolkit/sratoolkit.2.8.2-1-centos_linux64.tar.gz -C /EXECDIR/sratoolkit
+RUN wget https://www.arb-silva.de/fileadmin/silva_databases/SINA/1.2.11/sina-1.2.11_centos5_amd64.tgz -P /EXECDIR
+RUN tar zxf /EXECDIR/sina-1.2.11_centos5_amd64.tgz -C /EXECDIR/SINA
+RUN rm -rf /EXECDIR/sina-1.2.11_centos5_amd64.tgz
+RUN mv /EXECDIR/sina-1.2.11 /EXECDIR/SINA
+##############################################################
+# Dockerfile Version:   1.0
+# Software:             SILVA SSU DB
+# Software Version:     128
+# Software Website:     www.arb-silva.de
+# Description:          SILVA SSU DB
+##############################################################
+
+RUN wget https://www.arb-silva.de/fileadmin/arb_web_db/release_128/ARB_files/SSURef_NR99_128_SILVA_07_09_16_opt.arb.gz -P /INDEXDIR/silva_db.arb.gz
+RUN gunzip /INDEXDIR/silva_db.arb.gz
 RUN rm -rf /EXECDIR/sratoolkit/sratoolkit.2.8.2-1-centos_linux64.tar.gz
 RUN chmod -R 0755 /EXECDIR/sratoolkit/sratoolkit.2.8.2-1-centos_linux64
 ##############################################################
